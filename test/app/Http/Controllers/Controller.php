@@ -27,7 +27,6 @@ use Illuminate\Routing\Controller as BaseController;
  *     @OA\Response(response="default", description="Welcome page")
  * )
  */
-
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
