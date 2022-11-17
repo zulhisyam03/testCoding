@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Calon;
 use Illuminate\Http\Request;
+use App\Http\Resources\PostResource;
 
 class CalonController extends Controller
 {
+    /**
+     * index
+     * 
+     * @return void
+     */
     /**
      * Display a listing of the resource.
      *
@@ -15,20 +21,24 @@ class CalonController extends Controller
     public function index()
     {
         //
-        $posisi =   auth()->user()->posisi;
+        // $posisi =   auth()->user()->posisi;
 
-        if ($posisi == 'Senior HRD') {
-            # code...
-            $level  =   'admin';
-        }
-        else {
-            # code...
-            $level  = 'user';
-        }
-        return view('dashboard',[
-            'dataCalon' => Calon::all(),
-            'level'    => $level
-        ]);
+        // if ($posisi == 'Senior HRD') {
+        //     # code...
+        //     $level  =   'admin';
+        // }
+        // else {
+        //     # code...
+        //     $level  = 'user';
+        // }
+        // return view('dashboard',[
+        //     'dataCalon' => Calon::all(),
+        //     'level'    => $level
+        // ]);
+
+        $post   = Calon::latest()->paginate(5);
+
+        return new PostResource(true, 'List Calon Kandidat',$post);
     }
 
     /**
