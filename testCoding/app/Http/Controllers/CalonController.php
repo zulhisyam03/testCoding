@@ -15,6 +15,10 @@ class CalonController extends Controller
     public function index()
     {
         //
+        return view('dashboard',[
+            'dataCalon' => Calon::all(),
+            'posisi'    => auth()->user()->posisi
+        ]);
     }
 
     /**

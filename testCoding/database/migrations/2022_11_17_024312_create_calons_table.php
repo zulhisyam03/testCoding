@@ -15,6 +15,16 @@ return new class extends Migration
     {
         Schema::create('calons', function (Blueprint $table) {
             $table->id();
+            $table->string('name');            
+            $table->string('education');
+            $table->date('birthday');
+            $table->string('experience');
+            $table->string('lastPosition');
+            $table->string('appliedPosition');
+            $table->string('top5');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('resume');
             $table->timestamps();
         });
     }
