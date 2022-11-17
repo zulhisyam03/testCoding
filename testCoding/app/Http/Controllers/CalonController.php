@@ -15,9 +15,19 @@ class CalonController extends Controller
     public function index()
     {
         //
+        $posisi =   auth()->user()->posisi;
+
+        if ($posisi == 'Senior HRD') {
+            # code...
+            $level  =   'admin';
+        }
+        else {
+            # code...
+            $level  = 'user';
+        }
         return view('dashboard',[
             'dataCalon' => Calon::all(),
-            'posisi'    => auth()->user()->posisi
+            'level'    => $level
         ]);
     }
 

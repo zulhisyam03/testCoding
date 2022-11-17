@@ -18,5 +18,6 @@ use App\Http\Controllers\LoginController;
 Route::get('/', function () {return redirect('/login');});
 
 Route::get('/login', [LoginController::class,'index'])->name('login')->middleware('guest');
-Route::get('/dashboard',[CalonController::class,'index'])->middleware('auth');
 Route::post('/login',[LoginController::class,'authenticate']);
+Route::get('/home',[CalonController::class,'index'])->name('home')->middleware('auth');
+Route::post('/logout',[LoginController::class,'logout'])->middleware('auth');

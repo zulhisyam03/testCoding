@@ -38,8 +38,15 @@ class LoginController extends Controller
         if (Auth::attempt($validated)) {
             # code...
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/home');
         }
         return back()->with('gagal','Gagal Login!!!');
+    }
+
+    public function logout(){
+        request()->session()->invalidate();
+        request()->session()->regenerate();
+
+        return redirect('/');
     }
 }
