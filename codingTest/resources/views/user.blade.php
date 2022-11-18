@@ -26,7 +26,7 @@
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->phone }}</td>
                 <td>
-                    <a href="{{ $item->resume }}" target="_blank">CV {{ $item->name }}</a>
+                    <a href="/storage/{{ $item->resume }}" target="_blank">CV {{ $item->name }}</a>
                 </td>
             </tr>
         @endforeach

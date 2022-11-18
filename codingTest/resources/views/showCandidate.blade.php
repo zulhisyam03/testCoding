@@ -23,6 +23,9 @@
             left: 50%;
             transform: translate(-50%,0)
         }
+        th{
+            width:200px;
+        }
     </style>
 </head>
 
@@ -91,7 +94,7 @@
                         <th>
                             Resume
                         </th>
-                        <td>{{ $item->resume }}</td>
+                        <td><a href="/storage/{{ $item->resume }}">Resume.pdf</a></td>
                     </tr>
                 </table>
             @endforeach

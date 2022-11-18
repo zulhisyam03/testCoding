@@ -6,28 +6,31 @@ use App\Models\Calon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\PostResource;
+use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Stmt\Return_;
 
 /**
-     * @OA\Info(
-     *      version="1.0.0",
-     *      title="L5 OpenApi",
-     *      description="L5 Swagger OpenApi description",
-     *      @OA\Contact(
-     *          email="darius@matulionis.lt"
-     *      ),
-     *     @OA\License(
-     *         name="Apache 2.0",
-     *         url="https://www.apache.org/licenses/LICENSE-2.0.html"
-     *     )
-     * )
-     * 
-     * @OA\Get(
-     *     path="/",
-     *     description="Dashboard View",
-     *     tags={"Candidate"},
-     *     @OA\Response(response="default", description="Welcome page")
-     * )
-     */
+ * @OA\Info(
+ *      version="1.0.0",
+ *      title="L5 OpenApi",
+ *      description="L5 Swagger OpenApi description",
+ *      @OA\Contact(
+ *          email="darius@matulionis.lt"
+ *      ),
+ *     @OA\License(
+ *         name="Apache 2.0",
+ *         url="https://www.apache.org/licenses/LICENSE-2.0.html"
+ *     )
+ * )
+ * 
+ * @OA\Get(
+ *     path="/",
+ *     summary="All",
+ *      description="All",
+ *     tags={"Candidate"},
+ *     @OA\Response(response="default", description="All Data")
+ * )
+ */
 
 class CalonController extends Controller
 {
@@ -43,18 +46,17 @@ class CalonController extends Controller
         if ($posisi == 'Senior HRD') {
             # code...
             $level  =   'admin';
-        }
-        else {
+        } else {
             # code...
             $level  = 'user';
-        }
-        return view('dashboard',[
-            'dataCalon' => Calon::all(),
+        }        
+
+        $post   = Calon::all();
+        
+        return view('dashboard', [
+            'dataCalon' => $post,
             'level'    => $level
         ]);
-
-        // $post   = Calon::all();
-
         // return new PostResource(true, 'List Calon Kandidat',$post);
     }
 
@@ -69,71 +71,75 @@ class CalonController extends Controller
         return view('add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    /** 
+    * @OA\POST(
+    *     path="/candidate",
+    *     summary="Add",
+    *      description="Add",
+    *     tags={"Candidate"},
+    *       @OA\Parameter(
+        *      name="name",
+        *      in="query",
+        *      required=true,
+        *      description= "Add Candidate",
+        *      example="Julle",
+        *      @OA\Schema(
+        *           type="string"
+        *      )
+     *      ),
+    *     @OA\Response(response="default", description="Show page")
+    * )
+    */
     public function store(Request $request)
     {
-        //
+            $input  =   $request->validate([
+                'name'      =>  'required',
+                'education'      =>  'required',
+                'birthday'      =>  'required',
+                'experience'      =>  'required',
+                'lastPosition'      =>  'required',
+                'appliedPosition'      =>  'required',
+                'top5'      =>  'required',
+                'email'      =>  'required',
+                'phone'      =>  'required',
+                'resume'      =>  'mimes:pdf|file|max:2048|nullable'
+            ]);
+            // dd($input);
+            if ($request->file('resume')) {
+                # code...
+                $input['resume']    =   $request->file('resume')->store('uploaded-resume');
+            }
+            Calon::create($input);
+            return redirect('/');
+        // return new PostResource(true, 'Update Calon Kandidat',$candidate);
     }
-
-    /**
-     * @OA\Get(
-     *      path="/candidate/{candidate_id}",
-     *      operationId="getCandidate",
-     *      tags={"Candidate"},
-     *      summary="Get Candidate",
-     *      description="Get Candidate",
-     *      @OA\Parameter(
-     *      name="candidate_id",
-     *      in="path",
-     *      required=true,
-     *      description= "candidate id",
-     *      example="10",
-     *      @OA\Schema(
-     *           type="integer"
-     *      )
+    /** 
+    * @OA\Get(
+    *     path="/candidate/{id}",
+    *     summary="Show",
+    *      description="Show",
+    *     tags={"Candidate"},
+    *       @OA\Parameter(
+        *      name="id",
+        *      in="query",
+        *      required=true,
+        *      description= "candidate id",
+        *      example="1",
+        *      @OA\Schema(
+        *           type="integer"
+        *      )
      *      ),
-     *       @OA\Response(
-     *      response=200,
-     *      description="Success response",
-     *      @OA\JsonContent(
-     *      @OA\Property(property="status", type="number", example="200"),
-     *      @OA\Property(property="candidate", type="string", example="{'name':'Chetan','education':'UGM','created_at':'2022-05-27T07:16:57.000000Z','updated_at':'2022-05-27T07:16:57.000000Z'}"),
-     *        )
-     *     ),
-     *        @OA\Response(
-     *      response=400,
-     *      description="Bad Request",
-     *      @OA\JsonContent(
-     *      @OA\Property(property="status", type="number", example="400"),
-     *      @OA\Property(property="message", type="string", example="Error in processing request")
-     *        )
-     *     )
-     * )
-     *      
-     * )
-     */
-    
-    public function show($candidate_id)
+    *     @OA\Response(response="default", description="Show page")
+    * )
+    */
+    public function show($id)
     {
-        //
-        try {
-	    	$calon = Calon::where('id', $candidate_id)->get();
+        $candidate  = Calon::where('id',$id)->get();
 
-	    	if($calon){
-	    		return view('showCandidate',[
-                    'candidate' => $calon
-                ]);
-                // return response()->json(['status' => 200, 'candidate' => $calon], 200);
-
-	    	}
-    	}catch (\Exception $e) {
-            return response()->json(['status' => 400, 'message' => 'Error in processing request'], 400);
-        }
+        return view('showCandidate',[
+            'candidate' =>   $candidate
+        ]);
+        // return new PostResource(true, 'Show Calon Kandidat',$candidate);
     }
 
     /**
@@ -145,21 +151,39 @@ class CalonController extends Controller
     public function edit($calon)
     {
         //
-        return view('update',[
-            'candidate' => Calon::where('id',$calon)->get()
-        ]) ;
+        return view('update', [
+            'candidate' => Calon::where('id', $calon)->get()
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Calon  $calon
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Calon $calon)
+     
+    public function update(Request $request, $id)
     {
-        //
+        $validasi  =   $request->validate([
+            'name'      =>  'required',
+            'education'      =>  'required',
+            'birthday'      =>  'required',
+            'experience'      =>  'required',
+            'lastPosition'      =>  'required',
+            'appliedPosition'      =>  'required',
+            'top5'      =>  'required',
+            'email'      =>  'required',
+            'phone'      =>  'required',
+            'resume'      =>  'mimes:pdf|file|max:2048|nullable'
+        ]);
+
+        if ($request->file('resume')) {
+            if ($request->oldResume) {
+                Storage::delete($request->oldResume);
+            }
+            $validasi['resume'] = $request->file('resume')->store('uploaded-resume');
+        }
+
+        $candidate=Calon::find($id);
+        $candidate->update($validasi);
+
+        return new PostResource(true, 'Update Calon Kandidat',$candidate);
+
     }
 
     /**
@@ -168,8 +192,13 @@ class CalonController extends Controller
      * @param  \App\Models\Calon  $calon
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Calon $calon)
+    public function destroy($id)
     {
-        //
+        $candidate  = Calon::find($id);
+        if ($candidate != '') {
+            Storage::delete($candidate->resume);
+        }
+        $candidate->delete();
+        return redirect('/');
     }
 }

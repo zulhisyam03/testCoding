@@ -18,74 +18,65 @@
                 "tags": [
                     "Candidate"
                 ],
-                "description": "Dashboard View",
+                "summary": "All",
+                "description": "All",
                 "responses": {
                     "default": {
-                        "description": "Welcome page"
+                        "description": "All Data"
                     }
                 }
             }
         },
-        "/candidate/{candidate_id}": {
+        "/candidate": {
+            "post": {
+                "tags": [
+                    "Candidate"
+                ],
+                "summary": "Add",
+                "description": "Add",
+                "operationId": "9ecb221cf433b8e349f9c42fed065521",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Add Candidate",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Julle"
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Show page"
+                    }
+                }
+            }
+        },
+        "/candidate/{id}": {
             "get": {
                 "tags": [
                     "Candidate"
                 ],
-                "summary": "Get Candidate",
-                "description": "Get Candidate",
-                "operationId": "getCandidate",
+                "summary": "Show",
+                "description": "Show",
+                "operationId": "e78919f034bb69d4ba7d00b37ca7c327",
                 "parameters": [
                     {
-                        "name": "candidate_id",
-                        "in": "path",
+                        "name": "id",
+                        "in": "query",
                         "description": "candidate id",
                         "required": true,
                         "schema": {
                             "type": "integer"
                         },
-                        "example": "10"
+                        "example": "1"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "Success response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "number",
-                                            "example": "200"
-                                        },
-                                        "candidate": {
-                                            "type": "string",
-                                            "example": "{'name':'Chetan','education':'UGM','created_at':'2022-05-27T07:16:57.000000Z','updated_at':'2022-05-27T07:16:57.000000Z'}"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "number",
-                                            "example": "400"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Error in processing request"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
+                    "default": {
+                        "description": "Show page"
                     }
                 }
             }

@@ -32,12 +32,12 @@
     <div class="blok border border-warning mt-3 p-3">
         <span class="float-start"><a href="/home"><button class="btn btn-warning btn-sm">
                     << HOME</button></a></span>
-        <h3 class="text-center text-uppercase">Tambah Candidate &nbsp;&nbsp;</h3>
+        <h3 class="text-center text-uppercase">Update Candidate Data &nbsp;&nbsp;</h3>
         <p>
             @foreach ($candidate as $item)
-                <form action="/candidate/{{ $item->id }}" method="post">
-                    @method('put')
+                <form action="/candidate/{{ $item->id }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('PATCH')                    
                     <div class="row mb-2">
                         <div class="col-sm-5">
                             Full Name
@@ -56,6 +56,23 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col-sm-5">
+                            Birthday
+                        </div>
+                        <div class="col-sm">
+                            <input type="date" name="birthday" class="form-control"
+                                value="{{ $item->birthday }}">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-5">
+                            Experience
+                        </div>
+                        <div class="col-sm">
+                            <input type="text" name="experience" class="form-control" value="{{ $item->experience }}">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-5">
                             Last Position
                         </div>
                         <div class="col-sm">
@@ -65,28 +82,11 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col-sm-5">
-                            Birthday
-                        </div>
-                        <div class="col-sm">
-                            <input type="date" name="birthday" class="form-control" value="{{ $item->birthday }}">
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-5">
                             Applied Position
                         </div>
                         <div class="col-sm">
-                            <input type="text" name="applliedPosition" class="form-control"
+                            <input type="text" name="appliedPosition" class="form-control"
                                 value="{{ $item->appliedPosition }}">
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-5">
-                            Experience
-                        </div>
-                        <div class="col-sm">
-                            <input type="text" name="experience" class="form-control"
-                                value="{{ $item->experience }}">
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -118,7 +118,8 @@
                             Resume
                         </div>
                         <div class="col-sm">
-                            <input type="file" name="resume" class="form-control" value="{{ $item->resume }}">
+                            <input type="hidden" name="oldResume" value="{{ $item->resume }}">
+                            <input type="file" name="resume" class="form-control">
                         </div>
                     </div>
                     <button class="btn btn-success float-end">Save</button>

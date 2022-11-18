@@ -19,5 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('posts', App\Http\Controllers\CalonController::class);
-Route::apiResource('candidate', App\Http\Controllers\CalonController::class);
-
+// Route::apiResource('candidate/{id}', App\Http\Controllers\CalonController::class);

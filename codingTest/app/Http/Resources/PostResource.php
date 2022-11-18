@@ -6,16 +6,16 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
 {
-    public $status;
-    public $message;
+     public $status;
+     public $message;
 
-    /**
-     * __construct
-     * 
-     * @param mixed $status
-     * @param mixed $message
-     * @param mixed $resource
-     */
+     /**
+      * __construct
+      * 
+      * @param mixed $status
+      * @param mixed $message
+      * @param mixed $resource
+      */
     public function __construct($status, $message, $resource)
     {
         parent::__construct($resource);

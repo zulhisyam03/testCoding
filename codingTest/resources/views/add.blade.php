@@ -34,7 +34,7 @@
                     << HOME</button></a></span>
         <h3 class="text-center text-uppercase">Tambah Candidate &nbsp;&nbsp;</h3>
         <p>
-        <form action="/candidate" method="post">
+        <form action="/candidate" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row mb-2">
                 <div class="col-sm-5">
@@ -73,7 +73,7 @@
                     Applied Position
                 </div>
                 <div class="col-sm">
-                    <input type="text" name="applliedPosition" class="form-control">
+                    <input type="text" name="appliedPosition" class="form-control">
                 </div>
             </div>
             <div class="row mb-2">
