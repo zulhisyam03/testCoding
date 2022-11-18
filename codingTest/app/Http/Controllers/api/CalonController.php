@@ -62,6 +62,7 @@ class CalonController extends Controller
      *      description= "Full Name",
      *      example="Julle",
      *      @OA\Schema(
+     *              format="date",
      *           type="string"
      *      )
      *      ),

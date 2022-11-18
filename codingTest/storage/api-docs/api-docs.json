@@ -41,7 +41,8 @@
                         "description": "Full Name",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "format": "date"
                         },
                         "example": "Julle"
                     },
