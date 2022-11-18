@@ -14,7 +14,7 @@ class BookController extends Controller
 {
     /**
      * @OA\Get(
-     *  path="/books",
+     *  path="/book",
      *  operationId="indexBook",
      *  tags={"Books"},
      *  summary="Get list of Book",

@@ -15,10 +15,77 @@
     "paths": {
         "/": {
             "get": {
-                "description": "Home page",
+                "tags": [
+                    "Candidate"
+                ],
+                "description": "Dashboard View",
                 "responses": {
                     "default": {
                         "description": "Welcome page"
+                    }
+                }
+            }
+        },
+        "/candidate/{candidate_id}": {
+            "get": {
+                "tags": [
+                    "Candidate"
+                ],
+                "summary": "Get Candidate",
+                "description": "Get Candidate",
+                "operationId": "getCandidate",
+                "parameters": [
+                    {
+                        "name": "candidate_id",
+                        "in": "path",
+                        "description": "candidate id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "number",
+                                            "example": "200"
+                                        },
+                                        "candidate": {
+                                            "type": "string",
+                                            "example": "{'name':'Chetan','education':'UGM','created_at':'2022-05-27T07:16:57.000000Z','updated_at':'2022-05-27T07:16:57.000000Z'}"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "number",
+                                            "example": "400"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error in processing request"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }

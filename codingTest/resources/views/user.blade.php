@@ -16,7 +16,7 @@
     <tbody>
         @foreach ($dataCalon as $item)
             <tr>
-                <td>{{ $item->name }}</td>
+                <td><a href="/candidate/{{ $item->id }}">{{ $item->name }}</a></td>
                 <td>{{ $item->education }}</td>
                 <td>{{ $item->birthday }}</td>
                 <td>{{ $item->experience }}</td>

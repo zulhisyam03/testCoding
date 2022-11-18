@@ -21,3 +21,5 @@ Route::get('/login', [LoginController::class,'index'])->name('login')->middlewar
 Route::post('/login',[LoginController::class,'authenticate']);
 Route::get('/home',[CalonController::class,'index'])->name('home')->middleware('auth');
 Route::post('/logout',[LoginController::class,'logout'])->middleware('auth');
+Route::resource('/candidate',CalonController::class)->middleware('auth');
+// Route::get('/show/{candidate_id}',[CalonController::class,'show'])->middleware('auth');

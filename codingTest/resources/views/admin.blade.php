@@ -1,4 +1,8 @@
-<span class="float-start"><button class="btn btn-primary">+ Add</button></span>
+<span class="float-start">
+    <a href="/candidate/create">
+        <button class="btn btn-primary">+ Add</button>
+    </a>
+</span>
 <table class="table table-striped table-success">
     <thead>
         <tr>
@@ -18,7 +22,7 @@
     <tbody>
         @foreach ($dataCalon as $item)
             <tr>
-                <td>{{ $item->name }}</td>
+                <td><a href="/candidate/{{ $item->id }}">{{ $item->name }}</a></td>
                 <td>{{ $item->education }}</td>
                 <td>{{ $item->birthday }}</td>
                 <td>{{ $item->experience }}</td>
@@ -32,7 +36,9 @@
                 </td>
                 <td>
                     <i class="fa-solid fa-trash text-danger"></i>&nbsp;
-                    <i class="fa-solid fa-pencil text-primary"></i>
+                    <a href="/candidate/{{ $item->id }}/edit">
+                        <i class="fa-solid fa-pencil text-primary"></i>
+                    </a>
                 </td>
             </tr>
         @endforeach
