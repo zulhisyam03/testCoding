@@ -5,32 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Calon;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Return_;
-
-/**
- * @OA\Info(
- *      version="1.0.0",
- *      title="L5 OpenApi",
- *      description="L5 Swagger OpenApi description",
- *      @OA\Contact(
- *          email="darius@matulionis.lt"
- *      ),
- *     @OA\License(
- *         name="Apache 2.0",
- *         url="https://www.apache.org/licenses/LICENSE-2.0.html"
- *     )
- * )
- * 
- * @OA\Get(
- *     path="/",
- *     summary="All",
- *      description="All",
- *     tags={"Candidate"},
- *     @OA\Response(response="default", description="All Data")
- * )
- */
 
 class CalonController extends Controller
 {
@@ -40,7 +16,7 @@ class CalonController extends Controller
      */
     public function index()
     {
-        // //
+
         $posisi =   auth()->user()->posisi;
 
         if ($posisi == 'Senior HRD') {
@@ -57,7 +33,6 @@ class CalonController extends Controller
             'dataCalon' => $post,
             'level'    => $level
         ]);
-        // return new PostResource(true, 'List Calon Kandidat',$post);
     }
 
     /**
@@ -71,25 +46,6 @@ class CalonController extends Controller
         return view('add');
     }
 
-    /** 
-    * @OA\POST(
-    *     path="/candidate",
-    *     summary="Add",
-    *      description="Add",
-    *     tags={"Candidate"},
-    *       @OA\Parameter(
-        *      name="name",
-        *      in="query",
-        *      required=true,
-        *      description= "Add Candidate",
-        *      example="Julle",
-        *      @OA\Schema(
-        *           type="string"
-        *      )
-     *      ),
-    *     @OA\Response(response="default", description="Show page")
-    * )
-    */
     public function store(Request $request)
     {
             $input  =   $request->validate([
@@ -111,27 +67,8 @@ class CalonController extends Controller
             }
             Calon::create($input);
             return redirect('/');
-        // return new PostResource(true, 'Update Calon Kandidat',$candidate);
     }
-    /** 
-    * @OA\Get(
-    *     path="/candidate/{id}",
-    *     summary="Show",
-    *      description="Show",
-    *     tags={"Candidate"},
-    *       @OA\Parameter(
-        *      name="id",
-        *      in="query",
-        *      required=true,
-        *      description= "candidate id",
-        *      example="1",
-        *      @OA\Schema(
-        *           type="integer"
-        *      )
-     *      ),
-    *     @OA\Response(response="default", description="Show page")
-    * )
-    */
+    
     public function show($id)
     {
         $candidate  = Calon::where('id',$id)->get();
@@ -139,7 +76,7 @@ class CalonController extends Controller
         return view('showCandidate',[
             'candidate' =>   $candidate
         ]);
-        // return new PostResource(true, 'Show Calon Kandidat',$candidate);
+        // 
     }
 
     /**
@@ -151,6 +88,12 @@ class CalonController extends Controller
     public function edit($calon)
     {
         //
+        $posisi =   auth()->user()->posisi;
+
+        if ($posisi != 'Senior HRD') {
+            # code...
+            return redirect('/');
+        }      
         return view('update', [
             'candidate' => Calon::where('id', $calon)->get()
         ]);
@@ -182,8 +125,6 @@ class CalonController extends Controller
         $candidate=Calon::find($id);
         $candidate->update($validasi);
 
-        return new PostResource(true, 'Update Calon Kandidat',$candidate);
-
     }
 
     /**
@@ -194,6 +135,12 @@ class CalonController extends Controller
      */
     public function destroy($id)
     {
+        $posisi =   auth()->user()->posisi;
+
+        if ($posisi != 'Senior HRD') {
+            # code...
+            return redirect('/');
+        }   
         $candidate  = Calon::find($id);
         if ($candidate != '') {
             Storage::delete($candidate->resume);
