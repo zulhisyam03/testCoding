@@ -41,8 +41,7 @@
                         "description": "Full Name",
                         "required": true,
                         "schema": {
-                            "type": "string",
-                            "format": "date"
+                            "type": "string"
                         },
                         "example": "Julle"
                     },
@@ -62,7 +61,8 @@
                         "description": "Birthday",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "format": "date"
                         },
                         "example": "1995-05-03"
                     },
@@ -186,11 +186,11 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
-                        "description": "Candidate Id",
+                        "in": "path",
+                        "description": "candidate id",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
                         },
                         "example": "1"
                     },
@@ -200,8 +200,7 @@
                         "description": "Full Name",
                         "required": true,
                         "schema": {
-                            "type": "string",
-                            "format": "date"
+                            "type": "string"
                         },
                         "example": "Julle"
                     },
@@ -221,7 +220,8 @@
                         "description": "Birthday",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "format": "date"
                         },
                         "example": "1995-05-03"
                     },
@@ -286,23 +286,6 @@
                         "example": "082292299152"
                     }
                 ],
-                "requestBody": {
-                    "description": "Upload images request body",
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "resume": {
-                                        "description": "file to upload",
-                                        "type": "string",
-                                        "format": "binary"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "default": {
                         "description": "Update page"
@@ -331,6 +314,52 @@
                 "responses": {
                     "default": {
                         "description": "Delete page"
+                    }
+                }
+            }
+        },
+        "/api/candidate/{id}/editResume": {
+            "post": {
+                "tags": [
+                    "Candidate"
+                ],
+                "summary": "Update Resume",
+                "description": "Update Candidate Resume",
+                "operationId": "083645afb37a1084bd7af4243611813f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID Candidate",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "resume"
+                                ],
+                                "properties": {
+                                    "resume": {
+                                        "description": "file to upload",
+                                        "type": "file",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Update Resume page"
                     }
                 }
             }

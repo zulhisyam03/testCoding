@@ -94,7 +94,11 @@
                         <th>
                             Resume
                         </th>
-                        <td><a href="/storage/{{ $item->resume }}">Resume.pdf</a></td>
+                        <td>@if ($item->resume!='')
+                            <a href="/storage/{{ $item->resume }}" target="_blank">CV {{ $item->name }}</a>
+                            @else
+                                Not Available
+                            @endif 
                     </tr>
                 </table>
             @endforeach

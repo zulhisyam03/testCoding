@@ -26,7 +26,11 @@
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->phone }}</td>
                 <td>
+                    @if ($item->resume!='')
                     <a href="/storage/{{ $item->resume }}" target="_blank">CV {{ $item->name }}</a>
+                    @else
+                        Not Available
+                    @endif 
                 </td>
             </tr>
         @endforeach

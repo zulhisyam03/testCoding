@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Calon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -51,7 +52,7 @@ class CalonController extends Controller
 
     /** 
      * 
-     * @OA\POST(
+     * @OA\Post(
      *     path="/api/candidate",
      *     summary="Add",
      *     description="Add",
@@ -63,7 +64,6 @@ class CalonController extends Controller
      *      description= "Full Name",
      *      example="Julle",
      *      @OA\Schema(
-     *              format="date",
      *           type="string"
      *      )
      *      ),
@@ -84,6 +84,7 @@ class CalonController extends Controller
      *      description= "Birthday",
      *      example="1995-05-03",
      *      @OA\Schema(
+     *          format="date",
      *           type="string"
      *      )
      *      ),
@@ -167,6 +168,7 @@ class CalonController extends Controller
      */
     public function store(Request $request)
     {
+
         if ($request->file('resume')) {
             # code...
             if ($request->resume->extension() != 'pdf') {
@@ -223,31 +225,84 @@ class CalonController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     *      
+     * @OA\Post(
+     *     path="/api/candidate/{id}/editResume",
+     *     summary="Update Resume",
+     *     description="Update Candidate Resume",
+     *     tags={"Candidate"},
+     *       @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required=true,
+     *      description= "ID Candidate",
+     *      example="1",
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *      ),    
+        * @OA\RequestBody(    
+        *         @OA\MediaType(
+        *             mediaType="multipart/form-data",
+        *             @OA\Schema(                 
+        *                 @OA\Property(
+        *                     description="file to upload",
+        *                     property="resume",
+        *                     type="file",
+        *                     format="binary",
+        *                 ),     
+        *                required={"resume"},
+        *             )
+        *         )
+        *     ),
+     *      
+     *     @OA\Response(response="default", description="Update Resume page")
+     * )
+     * 
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function updateResume(Request $request, $id)
+    {   
+        $candidate  =   Calon::find($id);
+        if ($request->file('resume')) {
+
+            $validasi   = $request->validate([
+                'resume'    => 'mimes:pdf|max:2048'
+            ]);
+            # code...
+            if ($request->resume->extension() != 'pdf') {
+                # code...
+                return new PostResource(false, 'Invalid Add Kandidat', 'Invalid File Type. (Only PDF)');
+            }
+            if ($candidate->resume!='') {
+                # code...
+                Storage::delete($candidate->resume);                
+            }
+            $validasi['resume']    =   $request->file('resume')->store('uploaded-resume');
+            
+            $candidate->resume = $validasi['resume'];
+            $candidate->save();
+
+            return new PostResource(true, 'Update Resume Kandidat', $candidate);
+        }
+        
     }
 
     /** 
      * 
-     * @OA\PUT(
+     * @OA\Put(
      *     path="/api/candidate/{id}",
      *     summary="Update",
      *     description="Update",
      *     tags={"Candidate"},
      *      @OA\Parameter(
      *      name="id",
-     *      in="query",
+     *      in="path",
      *      required=true,
-     *      description= "Candidate Id",
+     *      description= "candidate id",
      *      example="1",
      *      @OA\Schema(
-     *           type="string"
+     *           type="integer"
      *      )
      *      ),
      *      @OA\Parameter(
@@ -257,7 +312,6 @@ class CalonController extends Controller
      *      description= "Full Name",
      *      example="Julle",
      *      @OA\Schema(
-     *              format="date",
      *           type="string"
      *      )
      *      ),
@@ -278,6 +332,7 @@ class CalonController extends Controller
      *      description= "Birthday",
      *      example="1995-05-03",
      *      @OA\Schema(
+     *            format="date",
      *           type="string"
      *      )
      *      ),
@@ -340,41 +395,17 @@ class CalonController extends Controller
      *      @OA\Schema(
      *           type="string"
      *      )
-     *      ),
-     *      @OA\RequestBody(
-     *         description="Upload images request body",
-     *         @OA\MediaType(
-     *             mediaType="application/octet-stream",
-     *             @OA\Schema(      
-     *                 @OA\Property(
-     *                     description="file to upload",
-     *                     property="resume",
-     *                     type="string",
-     *                     format="binary"
-     *                  ),                             
-*                  )
-*              )
-*          ),
+     * ),
      *      
      *     @OA\Response(response="default", description="Update page")
      * )
-     * 
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Request
      */
     public function update(Request $request, $id)
     {
-        if ($request->file('resume')) {
-            # code...
-            if ($request->resume->extension() != 'pdf') {
-                # code...
-                return new PostResource(false, 'Invalid Update Kandidat', 'Invalid File Type. (Only PDF)');
-            }
-        }
+        
         $validasi  =   $request->validate([
-            'id'      =>  'required',
+            'additionalMetadata'      =>  'required',
             'name'      =>  'required',
             'education'      =>  'required',
             'birthday'      =>  'required',
@@ -384,17 +415,9 @@ class CalonController extends Controller
             'top5'      =>  'required',
             'email'      =>  'required',
             'phone'      =>  'required',
-            'resume'      =>  'mimes:pdf|file|max:2048|nullable'
         ]);
 
-        $candidate = Calon::find($validasi['id']);
-
-        if ($request->file('resume')) {
-            if ($candidate->resume != '') {
-                Storage::delete($candidate->resume);
-            }
-            $validasi['resume'] = $request->file('resume')->store('uploaded-resume');
-        }
+        $candidate = Calon::find($id);
 
         $candidate->update($validasi);
 
@@ -430,4 +453,5 @@ class CalonController extends Controller
 
         return new PostResource(true, 'Delete Kandidat', $candidate);
     }
+
 }

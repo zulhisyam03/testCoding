@@ -60,8 +60,27 @@
                 <div class="col-sm text-end">
                     <button class="btn btn-success">Login</button>
                 </div>
-            </div>
+            </div>            
         </form>
+    </div>
+    <div style="position: fixed;top:0;right:0;">
+        <table class="table table-info"  style="width: 300px;">
+            <tr>
+                <th>User</th>
+                <th>Password</th>
+                <th>Position</th>
+            </tr>
+            <tr>
+                <td>Mr.John</td>
+                <td>password</td>
+                <td>Senior HRD</td>
+            </tr>
+            <tr>
+                <td>Mrs.Lee</td>
+                <td>password</td>
+                <td>HRD</td>
+            </tr>
+        </table>
     </div>
 </body>
 

@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route::apiResource('posts', App\Http\Controllers\api\CalonController::class);
 Route::apiResource('candidate', App\Http\Controllers\api\CalonController::class);
+Route::Post('candidate/{id}/editResume', [App\Http\Controllers\api\CalonController::class, 'updateResume']);
