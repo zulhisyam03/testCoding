@@ -146,16 +146,21 @@ class CalonController extends Controller
      *           type="string"
      *      )
      *      ),
-     *       @OA\Parameter(
-     *      name="resume",
-     *      in="query",
-     *      required=true,
-     *      description= "Resume",
-     *      example="uploaded-resume/CV.pdf",
-     *      @OA\Schema(
-     *           type="string"
-     *      )
-     *      ),
+     *      @OA\RequestBody(
+     *         required=true,     
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(                 
+     *                 @OA\Property(
+     *                     description="file to upload",
+     *                     property="resume",
+     *                     type="file",
+     *                     format="binary",
+     *                 ),     
+     *                 required={"resume"}
+     *             )
+     *         )
+     *     ),
      *     @OA\Response(response="default", description="Show page")
      * )
      */
@@ -171,10 +176,11 @@ class CalonController extends Controller
             'top5'      =>  'required',
             'email'      =>  'required',
             'phone'      =>  'required',
-            'resume'      =>  'nullable'
+            'resume'      =>  'mimes:pdf|file|max:2048|nullable'
         ]);
+
         // $input['resume']    =   "uploaded-resume/".$input['phone']."-".$input['name'].".".$input['resume']->getClientOriginalExtention();
-        $candidate   =   Calon::create($input);        
+        $candidate   =   Calon::create($input);
         return new PostResource(true, 'Add Kandidat', $candidate);
     }
 

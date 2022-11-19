@@ -22,6 +22,12 @@
 
 <body>
     <div class="container-fluid mt-4">
+        @if ($message = session()->has('succes'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong><i class="fa-solid fa-circle-check"></i> Congrate!</strong> {{ session()->get('succes') }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <h3 class="float-start">Welcome, {{ auth()->user()->name }} &nbsp;&nbsp;</h3>
         <form action="/logout" method="post">
             @csrf

@@ -125,18 +125,28 @@
                             "type": "string"
                         },
                         "example": "082292299152"
-                    },
-                    {
-                        "name": "resume",
-                        "in": "query",
-                        "description": "Resume",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "uploaded-resume/CV.pdf"
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "resume"
+                                ],
+                                "properties": {
+                                    "resume": {
+                                        "description": "file to upload",
+                                        "type": "file",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "default": {
                         "description": "Show page"

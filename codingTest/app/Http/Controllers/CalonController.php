@@ -42,12 +42,23 @@ class CalonController extends Controller
      */
     public function create()
     {
-        //
+        $posisi =   auth()->user()->posisi;
+
+        if ($posisi != 'Senior HRD') {
+            # code...
+            return redirect('/');
+        }    
         return view('add');
     }
 
     public function store(Request $request)
     {
+        $posisi =   auth()->user()->posisi;
+
+        if ($posisi != 'Senior HRD') {
+            # code...
+            return redirect('/');
+        }    
             $input  =   $request->validate([
                 'name'      =>  'required',
                 'education'      =>  'required',
@@ -66,8 +77,8 @@ class CalonController extends Controller
                 $input['resume']    =   $request->file('resume')->store('uploaded-resume');
             }
             Calon::create($input);
-            return redirect('/');
-    }
+            return redirect('/')->with('succes','Data Has Been Created');
+        }
     
     public function show($id)
     {
@@ -102,6 +113,12 @@ class CalonController extends Controller
      
     public function update(Request $request, $id)
     {
+        $posisi =   auth()->user()->posisi;
+
+        if ($posisi != 'Senior HRD') {
+            # code...
+            return redirect('/');
+        }    
         $validasi  =   $request->validate([
             'name'      =>  'required',
             'education'      =>  'required',
@@ -125,6 +142,7 @@ class CalonController extends Controller
         $candidate=Calon::find($id);
         $candidate->update($validasi);
 
+        return redirect('/home')->with('succes','Data Has Been Updated');
     }
 
     /**
@@ -146,6 +164,6 @@ class CalonController extends Controller
             Storage::delete($candidate->resume);
         }
         $candidate->delete();
-        return redirect('/');
+        return redirect('/')->with('succes','Data Has Been Deleted');
     }
 }
