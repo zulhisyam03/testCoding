@@ -50,10 +50,11 @@ class CalonController extends Controller
     }
 
     /** 
+     * 
      * @OA\POST(
      *     path="/api/candidate",
      *     summary="Add",
-     *      description="Add",
+     *     description="Add",
      *     tags={"Candidate"},
      *       @OA\Parameter(
      *      name="name",
@@ -146,8 +147,7 @@ class CalonController extends Controller
      *           type="string"
      *      )
      *      ),
-     *      @OA\RequestBody(
-     *         required=true,     
+     *      @OA\RequestBody(    
      *         @OA\MediaType(
      *             mediaType="multipart/form-data",
      *             @OA\Schema(                 
@@ -157,15 +157,23 @@ class CalonController extends Controller
      *                     type="file",
      *                     format="binary",
      *                 ),     
-     *                 required={"resume"}
+     *                
      *             )
      *         )
      *     ),
-     *     @OA\Response(response="default", description="Show page")
+     *     @OA\Response(response="default", description="Add page")
      * )
+     * @return Illuminate\Support\Facades\Storage
      */
     public function store(Request $request)
     {
+        if ($request->file('resume')) {
+            # code...
+            if ($request->resume->extension() != 'pdf') {
+                # code...
+                return new PostResource(false, 'Invalid Add Kandidat', 'Invalid File Type. (Only PDF)');
+            }
+        }
         $input  =   $request->validate([
             'name'      =>  'required',
             'education'      =>  'required',
@@ -178,8 +186,13 @@ class CalonController extends Controller
             'phone'      =>  'required',
             'resume'      =>  'mimes:pdf|file|max:2048|nullable'
         ]);
+ 
+        // $input['resume']    = $request->resume->storeAs("uploaded-resume", date('dmYHis')."-".$request->name.".".$request->resume->extension());
+        if ($request->file('resume')) {
+            # code...
+            $input['resume']    =   $request->file('resume')->store('uploaded-resume');
+        }
 
-        // $input['resume']    =   "uploaded-resume/".$input['phone']."-".$input['name'].".".$input['resume']->getClientOriginalExtention();
         $candidate   =   Calon::create($input);
         return new PostResource(true, 'Add Kandidat', $candidate);
     }
@@ -220,8 +233,132 @@ class CalonController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
+    /** 
+     * 
+     * @OA\PUT(
+     *     path="/api/candidate/{id}",
+     *     summary="Update",
+     *     description="Update",
+     *     tags={"Candidate"},
+     *      @OA\Parameter(
+     *      name="id",
+     *      in="query",
+     *      required=true,
+     *      description= "Candidate Id",
+     *      example="1",
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *      ),
+     *      @OA\Parameter(
+     *      name="name",
+     *      in="query",
+     *      required=true,
+     *      description= "Full Name",
+     *      example="Julle",
+     *      @OA\Schema(
+     *              format="date",
+     *           type="string"
+     *      )
+     *      ),
+     *       @OA\Parameter(
+     *      name="education",
+     *      in="query",
+     *      required=true,
+     *      description= "Education",
+     *      example="AMIKOM",
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *      ),
+     *       @OA\Parameter(
+     *      name="birthday",
+     *      in="query",
+     *      required=true,
+     *      description= "Birthday",
+     *      example="1995-05-03",
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *      ),
+     *       @OA\Parameter(
+     *      name="experience",
+     *      in="query",
+     *      required=true,
+     *      description= "Experience",
+     *      example="6",
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *      ),
+     *       @OA\Parameter(
+     *      name="lastPosition",
+     *      in="query",
+     *      required=true,
+     *      description= "Last Position",
+     *      example="Freelance",
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *      ),
+     *       @OA\Parameter(
+     *      name="appliedPosition",
+     *      in="query",
+     *      required=true,
+     *      description= "Applied Position",
+     *      example="PHP Fullstack",
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *      ),
+     *       @OA\Parameter(
+     *      name="top5",
+     *      in="query",
+     *      required=true,
+     *      description= "Top 5 Skill",
+     *      example="PHP,Laravel",
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *      ),
+     *       @OA\Parameter(
+     *      name="email",
+     *      in="query",
+     *      required=true,
+     *      description= "Email",
+     *      example="zul0342@gmail.com",
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *      ),
+     *       @OA\Parameter(
+     *      name="phone",
+     *      in="query",
+     *      required=true,
+     *      description= "Phone Number",
+     *      example="082292299152",
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *      ),
+     *      @OA\RequestBody(
+     *         description="Upload images request body",
+     *         @OA\MediaType(
+     *             mediaType="application/octet-stream",
+     *             @OA\Schema(      
+     *                 @OA\Property(
+     *                     description="file to upload",
+     *                     property="resume",
+     *                     type="string",
+     *                     format="binary"
+     *                  ),                             
+*                  )
+*              )
+*          ),
+     *      
+     *     @OA\Response(response="default", description="Update page")
+     * )
+     * 
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -229,7 +366,39 @@ class CalonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->file('resume')) {
+            # code...
+            if ($request->resume->extension() != 'pdf') {
+                # code...
+                return new PostResource(false, 'Invalid Update Kandidat', 'Invalid File Type. (Only PDF)');
+            }
+        }
+        $validasi  =   $request->validate([
+            'id'      =>  'required',
+            'name'      =>  'required',
+            'education'      =>  'required',
+            'birthday'      =>  'required',
+            'experience'      =>  'required',
+            'lastPosition'      =>  'required',
+            'appliedPosition'      =>  'required',
+            'top5'      =>  'required',
+            'email'      =>  'required',
+            'phone'      =>  'required',
+            'resume'      =>  'mimes:pdf|file|max:2048|nullable'
+        ]);
+
+        $candidate = Calon::find($validasi['id']);
+
+        if ($request->file('resume')) {
+            if ($candidate->resume != '') {
+                Storage::delete($candidate->resume);
+            }
+            $validasi['resume'] = $request->file('resume')->store('uploaded-resume');
+        }
+
+        $candidate->update($validasi);
+
+        return new PostResource(true, 'Update Kandidat', $candidate);
     }
 
     /** 
@@ -248,12 +417,15 @@ class CalonController extends Controller
      *           type="integer"
      *      )
      *      ),
-     *     @OA\Response(response="default", description="Show page")
+     *     @OA\Response(response="default", description="Delete page")
      * )
      */
     public function destroy($id)
     {
-        $candidate = Calon::find($id);
+        $candidate  = Calon::find($id);
+        if ($candidate != '') {
+            Storage::delete($candidate->resume);
+        }
         $candidate->delete();
 
         return new PostResource(true, 'Delete Kandidat', $candidate);

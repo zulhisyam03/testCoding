@@ -41,7 +41,10 @@
                     Full Name
                 </div>
                 <div class="col-sm">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror">
+                    @error('name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-2">
@@ -49,7 +52,11 @@
                     Education
                 </div>
                 <div class="col-sm">
-                    <input type="text" name="education" class="form-control">
+                    <input type="text" name="education"
+                        class="form-control @error('education') is-invalid @enderror">
+                    @error('education')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-2">
@@ -57,7 +64,11 @@
                     Last Position
                 </div>
                 <div class="col-sm">
-                    <input type="text" name="lastPosition" class="form-control">
+                    <input type="text" name="lastPosition"
+                        class="form-control @error('lastPosition') is-invalid @enderror">
+                    @error('lastPosition')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-2">
@@ -65,7 +76,10 @@
                     Birthday
                 </div>
                 <div class="col-sm">
-                    <input type="date" name="birthday" class="form-control">
+                    <input type="date" name="birthday" class="form-control @error('birthday') is-invalid @enderror">
+                    @error('birthday')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-2">
@@ -73,7 +87,11 @@
                     Applied Position
                 </div>
                 <div class="col-sm">
-                    <input type="text" name="appliedPosition" class="form-control">
+                    <input type="text" name="appliedPosition"
+                        class="form-control @error('appliedPosition') is-invalid @enderror">
+                    @error('appliedPosition')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-2">
@@ -81,7 +99,11 @@
                     Experience
                 </div>
                 <div class="col-sm">
-                    <input type="text" name="experience" class="form-control">
+                    <input type="text" name="experience"
+                        class="form-control @error('experience') is-invalid @enderror">
+                    @error('experience')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-2">
@@ -89,7 +111,10 @@
                     Top 5 Skills
                 </div>
                 <div class="col-sm">
-                    <input type="text" name="top5" class="form-control">
+                    <input type="text" name="top5" class="form-control @error('top5') is-invalid @enderror">
+                    @error('top5')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-2">
@@ -97,7 +122,10 @@
                     Email
                 </div>
                 <div class="col-sm">
-                    <input type="text" name="email" class="form-control">
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror">
+                    @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-2">
@@ -105,7 +133,10 @@
                     Phone Number
                 </div>
                 <div class="col-sm">
-                    <input type="text" name="phone" class="form-control">
+                    <input type="text" name="phone" class="form-control  @error('phone') is-invalid @enderror">
+                    @error('phone')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="row mb-2">
@@ -113,7 +144,10 @@
                     Resume
                 </div>
                 <div class="col-sm">
-                    <input type="file" name="resume" class="form-control">
+                    <input type="file" name="resume" class="form-control @error('resume') is-invalide @enderror">
+                    @error('resume')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <button class="btn btn-success float-end">Save</button>

@@ -75,9 +75,11 @@ class CalonController extends Controller
             if ($request->file('resume')) {
                 # code...
                 $input['resume']    =   $request->file('resume')->store('uploaded-resume');
+                // $input['resume']    = $request->resume->storeAs("uploaded-resume", date('dmYHis')."-".$request->name.".".$request->resume->extension());
+
             }
             Calon::create($input);
-            return redirect('/')->with('succes','Data Has Been Created');
+            return redirect('/home')->with('succes','Data Has Been Created');
         }
     
     public function show($id)
@@ -160,10 +162,10 @@ class CalonController extends Controller
             return redirect('/');
         }   
         $candidate  = Calon::find($id);
-        if ($candidate != '') {
+        if ($candidate->resume != '') {
             Storage::delete($candidate->resume);
         }
         $candidate->delete();
-        return redirect('/')->with('succes','Data Has Been Deleted');
+        return redirect('/home')->with('succes','Data Has Been Deleted');
     }
 }

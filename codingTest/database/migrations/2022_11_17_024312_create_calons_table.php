@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('top5');
             $table->string('email');
             $table->string('phone');
-            $table->string('resume');
+            $table->string('resume')->nullable();
             $table->timestamps();
         });
     }

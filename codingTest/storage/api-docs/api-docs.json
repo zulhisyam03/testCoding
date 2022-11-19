@@ -128,13 +128,9 @@
                     }
                 ],
                 "requestBody": {
-                    "required": true,
                     "content": {
                         "multipart/form-data": {
                             "schema": {
-                                "required": [
-                                    "resume"
-                                ],
                                 "properties": {
                                     "resume": {
                                         "description": "file to upload",
@@ -149,7 +145,7 @@
                 },
                 "responses": {
                     "default": {
-                        "description": "Show page"
+                        "description": "Add page"
                     }
                 }
             }
@@ -180,6 +176,139 @@
                     }
                 }
             },
+            "put": {
+                "tags": [
+                    "Candidate"
+                ],
+                "summary": "Update",
+                "description": "Update",
+                "operationId": "79e4015d011371783a940d2c2ef7a76c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Candidate Id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Full Name",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        "example": "Julle"
+                    },
+                    {
+                        "name": "education",
+                        "in": "query",
+                        "description": "Education",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "AMIKOM"
+                    },
+                    {
+                        "name": "birthday",
+                        "in": "query",
+                        "description": "Birthday",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "1995-05-03"
+                    },
+                    {
+                        "name": "experience",
+                        "in": "query",
+                        "description": "Experience",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "6"
+                    },
+                    {
+                        "name": "lastPosition",
+                        "in": "query",
+                        "description": "Last Position",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Freelance"
+                    },
+                    {
+                        "name": "appliedPosition",
+                        "in": "query",
+                        "description": "Applied Position",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "PHP Fullstack"
+                    },
+                    {
+                        "name": "top5",
+                        "in": "query",
+                        "description": "Top 5 Skill",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "PHP,Laravel"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "zul0342@gmail.com"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "query",
+                        "description": "Phone Number",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "082292299152"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Upload images request body",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "resume": {
+                                        "description": "file to upload",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "default": {
+                        "description": "Update page"
+                    }
+                }
+            },
             "delete": {
                 "tags": [
                     "Candidate"
@@ -201,7 +330,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Show page"
+                        "description": "Delete page"
                     }
                 }
             }
