@@ -405,7 +405,6 @@ class CalonController extends Controller
     {
         
         $validasi  =   $request->validate([
-            'additionalMetadata'      =>  'required',
             'name'      =>  'required',
             'education'      =>  'required',
             'birthday'      =>  'required',
