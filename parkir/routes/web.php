@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-route::get('/formCheckout', function() {return view('formCheckout',[
-                        'data' => App\Models\Checkout::all()
-                            ]);
-                        });
+
+route::get('/formCheckout', [CheckoutController::class,'index']);
 
 // Route::post('/find', [CheckoutController::class,'find']);
 Route::post('/checkin', [CheckoutController::class,'store']);

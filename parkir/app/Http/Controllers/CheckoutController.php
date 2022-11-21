@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 use \App\Models\Checkout;
 use DateTime;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
     //
+    public function index(){
+        $checkout   =   Checkout::all('noPolisi');
+
+        return view('formCheckout',[
+            'noPolisi'  => $checkout
+        ]);
+    }
+
     public function store(Request $request){
         // dd($request);
         $validated  =   $request->validate([
@@ -18,17 +27,4 @@ class CheckoutController extends Controller
 
         return redirect('/')->with('berhasil','Sukses Checkin!!!');
     }
-
-    // public function find(Request $request){
-    //     $noPolisi = $request->noPolisi;
-    //     $cekData    =   Checkout::where('noPolisi',$noPolisi)->get();
-
-    //     return view('/formCheckout',[
-    //         'data'  => $cekData,
-    //         'show'  => 'show',
-    //         'show'  => 'show',
-    //         'noPolisi'  => $request->session()->put('noPolisi',$noPolisi),
-    //         'find'  => $request->session()->put('find','Available')
-    //     ]);
-    // }
 }
