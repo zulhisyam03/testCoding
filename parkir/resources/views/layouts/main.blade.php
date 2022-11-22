@@ -236,6 +236,9 @@
 
         }
 
+        .col-form-label{
+            font-weight: bolder;
+        }
         .blok {
             width: 500px;
             position: absolute;

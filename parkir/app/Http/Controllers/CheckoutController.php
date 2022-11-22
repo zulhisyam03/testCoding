@@ -20,7 +20,7 @@ class CheckoutController extends Controller
     public function store(Request $request){
         // dd($request);
         $validated  =   $request->validate([
-            'noPolisi'  => 'required',
+            'noPolisi'  => 'required|min:4',
             'jenisKendaraan'    => 'required'
         ]);
         Checkout::create($validated);
