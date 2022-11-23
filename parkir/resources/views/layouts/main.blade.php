@@ -170,6 +170,7 @@
         .col-form-label{
             font-weight: bolder;
         }
+
         .blok {
             position: absolute;
             top: 50%;
