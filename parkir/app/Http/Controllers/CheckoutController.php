@@ -23,6 +23,13 @@ class CheckoutController extends Controller
             'noPolisi'  => 'required|min:4',
             'jenisKendaraan'    => 'required'
         ]);
+
+        $cek    =   Checkout::where('noPolisi',$validated['noPolisi'])->first();
+        
+        if ($cek->tglKeluar ==null) {
+            # code...
+            return redirect('/')->with('gagal','Kendaraan Sudah Checkin dan Belum Checkout !!!');
+        }
         Checkout::create($validated);
 
         return redirect('/')->with('berhasil','Sukses Checkin!!!');
