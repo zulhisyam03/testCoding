@@ -10,7 +10,7 @@ class CheckoutController extends Controller
 {
     //
     public function index(){
-        $checkout   =   Checkout::all('noPolisi');
+        $checkout   =   Checkout::where('tglKeluar',null)->get();
 
         return view('formCheckout',[
             'noPolisi'  => $checkout
@@ -26,12 +26,15 @@ class CheckoutController extends Controller
 
         $cek    =   Checkout::where('noPolisi',$validated['noPolisi'])->first();
         
-        if ($cek->tglKeluar ==null) {
+        if ($cek) {
             # code...
-            return redirect('/')->with('gagal','Kendaraan Sudah Checkin dan Belum Checkout !!!');
-        }
+            if ($cek->tglKeluar == null) {
+                # code...
+                return redirect('/')->with('gagal','Kendaraan Sudah Checkin dan Belum Checkout !!!');
+            }
+        }        
         Checkout::create($validated);
 
-        return redirect('/')->with('berhasil','Sukses Checkin!!!');
+        return redirect('/')->with('sukses','Sukses Checkin!!!');
     }
 }

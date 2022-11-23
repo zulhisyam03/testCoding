@@ -1,13 +1,7 @@
 @extends('layouts.main')
-@section('content')
-    @if ($message = session()->has('gagal'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="position:fixed;top:0;width:100%;">
-            <strong>Maaf !</strong> {{ session()->get('gagal') }}.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+@section('content')    
     <div class="blok">
-        <div class="container">
+        <div class="container-fluid">
             <div class="card">
                 <div class="card-title mt-3" align="center">
                     <h2>Form Checkin Parkir</h2>
@@ -44,7 +38,7 @@
                         <button class="btn btn-success" style="float:right;">Checkin</button>
                     </form>
                     <a href="/formCheckout">
-                        <button class="btn btn-primary">Form Checkout</button>
+                        <button class="btn btn-primary" style="float:left;">Form Checkout</button>
                     </a>
                 </div>
             </div>

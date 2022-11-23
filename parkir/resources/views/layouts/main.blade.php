@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home - Checkout</title>
+    <title>Home - Parkir</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -177,29 +177,11 @@
             left: 50%;
             transform: translate(-50%, -50%);
             padding: 10px;
+            width:100%;
+            max-width:500px;
         }
+        
     </style>
-    <script>
-        $(document).ready(function() {
-            $("#noPolisi").change(function() {
-                $.ajax({
-                    url: '/cek/' + $(this).val(),
-                    type: 'get',
-                    data: {},
-                    success: function(data) {
-                        // if (data.success == true) {
-                        //     // $("#noPolisi").value = data.noPolisi;
-                        //     $("#jenisKendaraan").value = data.jenisKendaraan;
-                        // } else {
-                        //     alert('Cannot find info');
-                        // }
-                        $("#jenisKendaran").val = 'Honde';
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {}
-                });
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -224,6 +206,21 @@
             <li></li>
         </ul>
     </div>
+    {{-- Alert --}}
+    @if ($message = session()->has('gagal'))
+        <div class="alert alert-danger text-center alert-dismissible fade show" role="alert" style="position:fixed;top:0;width:100%;">
+            <strong>Maaf !</strong> {{ session()->get('gagal') }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if ($message = session()->has('sukses'))
+        <div class="alert alert-success text-center alert-dismissible fade show" role="alert" style="position:fixed;top:0;width:100%;">
+            <strong>Selamat !</strong> {{ session()->get('sukses') }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    {{-- END ALERT --}}
+
     @yield('content')
 
     {{-- <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> --}}    

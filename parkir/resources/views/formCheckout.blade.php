@@ -13,12 +13,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-5 col-form-label">No. Polisi</div>
                         <div class="col-sm mb-0">
-                            <select name="noPolisi" id="" class="form-control">
-                                <option value="" disabled selected hidden>No Polisi</option>
-                                @foreach ($noPolisi as $item)
-                                    <option value="{{ $item->noPolisi }}">{{ $item->noPolisi }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" name="noPolisi" class="form-control" placeholder="DNxxxxMB">
                         </div>
                     </div>
                     <div class="row mb-2">
