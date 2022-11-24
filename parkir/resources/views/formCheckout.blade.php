@@ -8,50 +8,37 @@
                 <hr>
             </div>
             <div class="card-body" id="data-kendaraan">
-                <form action="/find" method="post">
+                <form action="checkout" method="post">
                     @csrf
                     <div class="row mb-2">
                         <div class="col-sm-5 col-form-label">No. Polisi</div>
                         <div class="col-sm mb-0">
                             <input type="text" name="noPolisi" class="form-control" placeholder="DNxxxxMB" id="noPolisi" >
                         </div>
-                    </div>
+                    </div>                                       
                     <div class="row mb-2">
-                        <div class="col-sm-5 col-form-label">Tanggal Keluar</div>
-                        <div class="col-sm mb-0">
-                            <input type="date" name="tglKeluar" class="form-control text-capitalize" id="tglKeluar">
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-5 col-form-label">Jam Keluar</div>
-                        <div class="col-sm mb-0">
-                            <input type="time" name="jamKeluar" class="form-control text-capitalize">
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-5 col-form-label">Tanggal Masuk</div>
+                        <div class="col-sm-5 col-form-label">Tanggal & Jam Masuk</div>
                         <div class="col-sm mb-0">
                             <input type="text" name="tglMasuk" class="form-control text-capitalize" value=""
                                 id="tglMasuk" readonly>
                         </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-5 col-form-label">Jam Masuk</div>
-                        <div class="col-sm mb-0">
-                            <input type="text" name="jamMasuk" class="form-control text-capitalize" value=""
-                                id="jamMasuk" readonly>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-sm-5 col-form-label">Jenis Kendaraan</div>
-                        <div class="col-sm"><input type="text" name="jenisKendaraan" class="form-control text-capitalize"
-                                id="jenisKendaraan" >
-                        </div>
                     </div>                    
                     <div class="row mb-2">
+                        <div class="col-sm-5 col-form-label">Jenis Kendaraan</div>
+                        <div class="col-sm"><input type="text" name="jenisKendaraan" class="form-control text-capitalize" readonly
+                                id="jenisKendaraan" >
+                        </div>
+                    </div>  
+                    <div class="row mb-2">
+                        <div class="col-sm-5 col-form-label">Tanggal & Jam Keluar</div>
+                        <div class="col-sm mb-0">
+                            <input type="datetime-local" name="tglKeluar" class="form-control text-capitalize" id="tglKeluar">
+                        </div>
+                    </div>                  
+                    <div class="row mb-2">
                         <div class="col-sm-5 col-form-label">Biaya</div>
-                        <div class="col-sm"><input type="text" name="jenisKendaraan" class="form-control text-capitalize"
-                                value="">
+                        <div class="col-sm"><input type="text" name="biaya" class="form-control text-capitalize" id="biaya"
+                                readonly>
                         </div>
                     </div>
                     <button class="btn btn-success" style="float:right;">Checkout</button>

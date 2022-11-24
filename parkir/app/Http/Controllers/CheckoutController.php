@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Checkout;
+use Carbon\Carbon;
+use DateTime;
 use Yajra\DataTables\DataTables;
 
 class CheckoutController extends Controller
@@ -13,9 +15,39 @@ class CheckoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {       
+        if ($request->ket == 'kendaraan') {
+            # code...
+            $data = Checkout::where([['noPolisi',$request->noPolisi],['tglKeluar',null]])->get();
+            return response()->json($data);
+        }else
+        if ($request->ket == 'biaya') {
+            # code...
+            $tglMasuk= \Carbon\Carbon::parse($request->tglMasuk);
+            $tglKeluar= \Carbon\Carbon::parse($request->tglKeluar);
 
+            $lamaParkir = $tglKeluar->diffInHours($tglMasuk);
+
+            if ($lamaParkir >= 24) {
+                $biaya = 50000;
+            }else {
+                if ($lamaParkir <= 1) {
+                    # code...
+                    $biaya = 5000;
+                }
+                elseif ($lamaParkir > 1) {
+                    # code...
+                    $biaya = 5000 + (4000 * $lamaParkir);
+                    if ($biaya >50000) {
+                        # code...
+                        $biaya = 50000;
+                    }
+                }
+            }
+            $biaya = $biaya;
+            return response()->json([$biaya]);
+        }        
     }
 
     /**
@@ -63,9 +95,7 @@ class CheckoutController extends Controller
      */
     public function show(Request $request)
     {
-        $data = Checkout::where([['noPolisi',$request->noPolisi],['tglKeluar',null]])->get();
 
-        return DataTables::of($data)->make(true);
     }
 
     /**

@@ -252,14 +252,45 @@
                     url : 'checkin',
                     type: 'GET',
                     data:{
-                        noPolisi : $('#noPolisi').val()
+                        noPolisi : $('#noPolisi').val(),
+                        ket  : 'kendaraan'
                     },                    
                     success: function(response){
-                        console.log('Sukses');
+                        let jenisKendaraan = response[0]['jenisKendaraan'];
+                        let tglMasuk = response[0]['tglMasuk'];
+                        
+                        document.getElementById('biaya').value = '';
+                        document.getElementById('tglKeluar').value = '';
+                        document.getElementById('jenisKendaraan').value = jenisKendaraan;
+                        document.getElementById('tglMasuk').value = tglMasuk;
+
+                        console.log(response);
                     },
                     error: function (response) {
                         console.log('ERROR:: ');
                     }
+                });
+
+                $("body").on('change','#tglKeluar', function(){
+                    $.ajax({
+                        url : 'checkin',
+                        type: 'GET',
+                        data:{
+                            tglMasuk    : $('#tglMasuk').val(),
+                            tglKeluar   : $('#tglKeluar').val(),
+                            ket         : 'biaya'
+                        },
+                        success:function(response){
+                            let biaya = response[0];
+
+                            document.getElementById('biaya').value = biaya;
+                            console.log('Biaya : '+biaya);
+                        },
+                        error: function (response) {
+                            console.log('Error Biaya');
+                        }
+
+                    });
                 });
             });
         });
