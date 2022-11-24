@@ -1,0 +1,1 @@
+<h1>{{ $kendaraan->jenisKendaraan }}</h1>

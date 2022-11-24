@@ -15,7 +15,7 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        return 'Sukses';
+
     }
 
     /**
@@ -61,9 +61,11 @@ class CheckoutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $data = Checkout::where([['noPolisi',$request->noPolisi],['tglKeluar',null]])->get();
+
+        return DataTables::of($data)->make(true);
     }
 
     /**

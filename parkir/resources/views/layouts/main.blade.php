@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <title>Home - Parkir</title>
     {{-- Bootstrap --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
@@ -239,9 +240,27 @@
 
     <script>
 
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $(document).ready(function (){
             $("body").on('change','#noPolisi', function(){
-                document.getElementById('jenisKendaraan').value='Jenis Kendaraan'
+                $.ajax({
+                    url : 'checkin',
+                    type: 'GET',
+                    data:{
+                        noPolisi : $('#noPolisi').val()
+                    },                    
+                    success: function(response){
+                        console.log('Sukses');
+                    },
+                    error: function (response) {
+                        console.log('ERROR:: ');
+                    }
+                });
             });
         });
 
