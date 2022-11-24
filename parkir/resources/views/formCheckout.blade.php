@@ -13,7 +13,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-5 col-form-label">No. Polisi</div>
                         <div class="col-sm mb-0">
-                            <input type="text" name="noPolisi" class="form-control" placeholder="DNxxxxMB" id="noPolisi">
+                            <input type="text" name="noPolisi" class="form-control" placeholder="DNxxxxMB" id="noPolisi" >
                         </div>
                     </div>
                     <div class="row mb-2">

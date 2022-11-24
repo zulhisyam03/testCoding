@@ -15,9 +15,7 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        $checkout   =   Checkout::where('tglKeluar', null)->get();
-
-        return DataTables::of($checkout)->make(true);
+        return 'Sukses';
     }
 
     /**
