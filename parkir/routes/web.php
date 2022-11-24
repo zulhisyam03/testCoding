@@ -18,7 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-route::get('/formCheckout', [CheckoutController::class,'index']);
+route::get('/formCheckout', function () {
+    return view('formCheckout');
+});
 
 // Route::post('/find', [CheckoutController::class,'find']);
-Route::post('/checkin', [CheckoutController::class,'store']);
+Route::resource('checkin', CheckoutController::class);

@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home - Parkir</title>
+    {{-- Bootstrap --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    {{-- fontawesome --}}
     <script src="https://kit.fontawesome.com/62c979b04d.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+    {{-- Datatables --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 
     <style>
 
@@ -167,7 +169,7 @@
 
         }
 
-        .col-form-label{
+        .col-form-label {
             font-weight: bolder;
         }
 
@@ -177,10 +179,18 @@
             left: 50%;
             transform: translate(-50%, -50%);
             padding: 10px;
-            width:100%;
-            max-width:500px;
+            width: 500px;
         }
-        
+
+        @media screen and (max-width:420px) {
+            .blok {
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -208,13 +218,15 @@
     </div>
     {{-- Alert --}}
     @if ($message = session()->has('gagal'))
-        <div class="alert alert-danger text-center alert-dismissible fade show" role="alert" style="position:fixed;top:0;width:100%;">
+        <div class="alert alert-danger text-center alert-dismissible fade show" role="alert"
+            style="position:fixed;top:0;width:100%;">
             <strong>Maaf !</strong> {{ session()->get('gagal') }}.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if ($message = session()->has('sukses'))
-        <div class="alert alert-success text-center alert-dismissible fade show" role="alert" style="position:fixed;top:0;width:100%;">
+        <div class="alert alert-success text-center alert-dismissible fade show" role="alert"
+            style="position:fixed;top:0;width:100%;">
             <strong>Selamat !</strong> {{ session()->get('sukses') }}.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -223,7 +235,17 @@
 
     @yield('content')
 
-    {{-- <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> --}}    
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    
+    {{-- Datatables --}}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>        
+
+    <script>
+        $(document).ready(function (){
+
+        });
+    </script>
 
 </body>
 

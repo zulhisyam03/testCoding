@@ -7,19 +7,19 @@
                 <h2>Form Checkout Parkir</h2>
                 <hr>
             </div>
-            <div class="card-body">
+            <div class="card-body" id="data-kendaraan">
                 <form action="/find" method="post">
                     @csrf
                     <div class="row mb-2">
                         <div class="col-sm-5 col-form-label">No. Polisi</div>
                         <div class="col-sm mb-0">
-                            <input type="text" name="noPolisi" class="form-control" placeholder="DNxxxxMB">
+                            <input type="text" name="noPolisi" class="form-control" placeholder="DNxxxxMB" id="noPolisi">
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col-sm-5 col-form-label">Tanggal Keluar</div>
                         <div class="col-sm mb-0">
-                            <input type="date" name="tglKeluar" class="form-control text-capitalize">
+                            <input type="date" name="tglKeluar" class="form-control text-capitalize" id="tglKeluar">
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -45,7 +45,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-5 col-form-label">Jenis Kendaraan</div>
                         <div class="col-sm"><input type="text" name="jenisKendaraan" class="form-control text-capitalize"
-                                id="jenisKendaraan" value="" readonly>
+                                id="jenisKendaraan" >
                         </div>
                     </div>                    
                     <div class="row mb-2">
