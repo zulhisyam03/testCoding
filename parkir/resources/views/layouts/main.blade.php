@@ -8,6 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <title>Home - Parkir</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
     {{-- Bootstrap --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -250,7 +252,7 @@
         $(document).ready(function (){
             $("body").on('change','#noPolisi', function(){
                 $.ajax({
-                    url : 'checkin',
+                    url : 'checkout',
                     type: 'GET',
                     data:{
                         noPolisi : $('#noPolisi').val(),
@@ -274,7 +276,7 @@
 
                 $("body").on('change','#tglKeluar', function(){
                     $.ajax({
-                        url : 'checkin',
+                        url : 'checkout',
                         type: 'GET',
                         data:{
                             tglMasuk    : $('#tglMasuk').val(),

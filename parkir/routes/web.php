@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\LoginController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/login', [LoginController::class,'index'])->name('login')->middleware('guest');
 
-route::get('/formCheckout', function () {
-    return view('formCheckout');
-});
+route::get('/formCheckout', function () {return view('formCheckout');});
 
-// Route::post('/find', [CheckoutController::class,'find']);
-Route::resource('checkin', CheckoutController::class);
+Route::resource('checkin', CcheckinController::class)->middleware('auth');
+Route::resource('checkout', CheckoutController::class);
