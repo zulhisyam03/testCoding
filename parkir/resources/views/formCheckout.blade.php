@@ -3,7 +3,8 @@
 @section('content')
     <div class="blok">
         <div class="card">
-            <div class="card-title mt-3" align="center">
+            @include('layouts.nav')
+            <div class="card-title mt-2" align="center">
                 <h2>Form Checkout Parkir</h2>
                 <hr>
             </div>

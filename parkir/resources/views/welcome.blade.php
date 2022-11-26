@@ -1,9 +1,10 @@
 @extends('layouts.main')
 @section('content')    
     <div class="blok">
-        <div class="container-fluid">
+        <div class="container-fluid">                        
             <div class="card">
-                <div class="card-title mt-3" align="center">
+                @include('layouts.nav')
+                <div class="card-title mt-2" align="center">
                     <h2>Form Checkin Parkir</h2>
                     <hr>
                 </div>
@@ -38,7 +39,7 @@
                         <button class="btn btn-success" style="float:right;">Checkin</button>
                     </form>
                     <a href="checkout">
-                        <button class="btn btn-primary" style="float:left;">Form Checkout</button>
+                        <button class="btn btn-primary" style="">Form Checkout</button>
                     </a>
                 </div>
             </div>

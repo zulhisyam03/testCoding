@@ -189,11 +189,8 @@
         @media screen and (max-width:420px) {
             .blok {
                 width: 100%;
-            }
+            }        
 
-            .btn {
-                width: 100%;
-            }
         }
     </style>
 </head>
