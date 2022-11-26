@@ -15,39 +15,9 @@ class CheckoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {       
-        if ($request->ket == 'kendaraan') {
-            # code...
-            $data = Checkout::where([['noPolisi',$request->noPolisi],['tglKeluar',null]])->get();
-            return response()->json($data);
-        }else
-        if ($request->ket == 'biaya') {
-            # code...
-            $tglMasuk= \Carbon\Carbon::parse($request->tglMasuk);
-            $tglKeluar= \Carbon\Carbon::parse($request->tglKeluar);
-
-            $lamaParkir = $tglKeluar->diffInHours($tglMasuk);
-
-            if ($lamaParkir >= 24) {
-                $biaya = 50000;
-            }else {
-                if ($lamaParkir <= 1) {
-                    # code...
-                    $biaya = 5000;
-                }
-                elseif ($lamaParkir > 1) {
-                    # code...
-                    $biaya = 5000 + (4000 * $lamaParkir);
-                    if ($biaya >50000) {
-                        # code...
-                        $biaya = 50000;
-                    }
-                }
-            }
-            $biaya = $biaya;
-            return response()->json([$biaya]);
-        }        
+        return view('formCheckout');
     }
 
     /**
@@ -68,23 +38,7 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        $validated  =   $request->validate([
-            'noPolisi'  => 'required',
-            'jenisKendaraan'    => 'required'
-        ]);
-
-        $cek    =   Checkout::where('noPolisi', $validated['noPolisi'])->first();
-
-        if ($cek) {
-            # code...
-            if ($cek->tglKeluar == null) {
-                # code...
-                return redirect('/')->with('gagal', 'Kendaraan Sudah Checkin dan Belum Checkout !!!');
-            }
-        }
-        Checkout::create($validated);
-
-        return redirect('/')->with('sukses', 'Sukses Checkin!!!');
+        
     }
 
     /**
@@ -130,5 +84,39 @@ class CheckoutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function dataAjax(Request $request){
+        if ($request->ket == 'kendaraan') {
+            # code...
+            $data = Checkout::where([['noPolisi',$request->noPolisi],['tglKeluar',null]])->get();
+            return response()->json($data);
+        }else
+        if ($request->ket == 'biaya') {
+            # code...
+            $tglMasuk= \Carbon\Carbon::parse($request->tglMasuk);
+            $tglKeluar= \Carbon\Carbon::parse($request->tglKeluar);
+
+            $lamaParkir = $tglKeluar->diffInHours($tglMasuk);
+
+            if ($lamaParkir >= 24) {
+                $biaya = 50000;
+            }else {
+                if ($lamaParkir <= 1) {
+                    # code...
+                    $biaya = 5000;
+                }
+                elseif ($lamaParkir > 1) {
+                    # code...
+                    $biaya = 5000 + (4000 * $lamaParkir);
+                    if ($biaya >50000) {
+                        # code...
+                        $biaya = 50000;
+                    }
+                }
+            }
+            $biaya = $biaya;
+            return response()->json([$biaya]);
+        }      
     }
 }

@@ -11,16 +11,23 @@
                         Login
                         <span class="underline"></span>
                     </button>
-                    <form class="form form-login">
+                    <form class="form form-login" action="/login" method="post">
+                        @csrf
                         <fieldset>
-                            <legend>Please, enter your username and password for login.</legend>
+                            <legend>Please, enter your email and password for login.</legend>
                             <div class="input-block">
-                                <label for="login-email">Username</label>
-                                <input id="login-email" type="email" required>
+                                <label for="login-email">Email</label>
+                                <input id="login-email" type="email" name="email" class="@error('email') is-invalid @enderror" required>
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="input-block">
                                 <label for="login-password">Password</label>
-                                <input id="login-password" type="password" required>
+                                <input id="login-password" type="password" name="password" class="@error('password') is-invalid @enderror" required>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </fieldset>
                         <button type="submit" class="btn-login bg-primary">Login</button>
@@ -33,9 +40,9 @@
                     </button>
                     <form class="form form-signup">
                         <fieldset>
-                            <legend>Please, enter your username, password and password confirmation for sign up.</legend>
+                            <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                             <div class="input-block">
-                                <label for="signup-email">username</label>
+                                <label for="signup-email">Email</label>
                                 <input id="signup-email" type="email" required>
                             </div>
                             <div class="input-block">

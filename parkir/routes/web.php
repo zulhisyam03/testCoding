@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CheckinController;
 use App\Http\Controllers\LoginController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
@@ -15,10 +16,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', function(){return redirect('/login');})->middleware('guest');
 Route::get('/login', [LoginController::class,'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class,'authenticate'])->middleware('guest');
 
-route::get('/formCheckout', function () {return view('formCheckout');});
-
-Route::resource('checkin', CcheckinController::class)->middleware('auth');
-Route::resource('checkout', CheckoutController::class);
+Route::resource('checkin', CheckinController::class)->middleware('auth');
+Route::get('checkout/dataAjax', [CheckoutController::class,'dataAjax'])->middleware('auth');
+Route::resource('checkout', CheckoutController::class)->middleware('auth');
+Route::get('/logout', [LoginController::class,'logout'])->middleware('auth');

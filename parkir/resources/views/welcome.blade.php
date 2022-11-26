@@ -37,7 +37,7 @@
                         </div>
                         <button class="btn btn-success" style="float:right;">Checkin</button>
                     </form>
-                    <a href="formCheckout">
+                    <a href="checkout">
                         <button class="btn btn-primary" style="float:left;">Form Checkout</button>
                     </a>
                 </div>

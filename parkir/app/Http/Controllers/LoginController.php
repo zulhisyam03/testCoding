@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     public function index(){
-        return view('login',[
-            'title' => 'LOGIN'
+        return view('/login',[
+            'title' => 'Login'
         ]);
     }
 
     public function authenticate(Request $request){
         $validated = $request->validate([
-            'username'  => 'required|min:6',
+            'email'  => 'required|min:6|email:dns',
             'password'  => 'required|min:6'
         ]);
 
@@ -24,8 +24,15 @@ class LoginController extends Controller
             # code...
             $request->session()->regenerate();
 
-            return redirect()->intended('checkin');
+            return redirect()->intended('/checkin');
         }
         return back()->with('gagal','Gagal login !!!');
+    }
+
+    public function logout(){
+        request()->session()->invalidate();
+        request()->session()->regenerate();
+
+        return redirect('/');
     }
 }
