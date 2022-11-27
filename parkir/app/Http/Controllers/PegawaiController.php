@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
-use \App\Models\Checkout;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Carbon;
 
-class CheckinController extends Controller
+class PegawaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,7 @@ class CheckinController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        //
     }
 
     /**
@@ -37,34 +35,16 @@ class CheckinController extends Controller
      */
     public function store(Request $request)
     {
-        $validated  =   $request->validate([
-            'noPolisi'  => 'required',
-            'jenisKendaraan'    => 'required'        
-        ]);
-        $validated['idPegawai'] =   auth()->user()->idPegawai;
-        $validated['tglMasuk']  =  Carbon::now();
-
-        $cek    =   Checkout::where('noPolisi', $validated['noPolisi'])->first();
-
-        if ($cek) {
-            # code...
-            if ($cek->tglKeluar == null) {
-                # code...
-                return redirect('/checkin')->with('gagal', 'Kendaraan Sudah Checkin dan Belum Checkout !!!');
-            }
-        }
-        Checkout::create($validated);
-
-        return redirect('/checkin')->with('sukses', 'Sukses Checkin!!!');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Pegawai  $pegawai
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Pegawai $pegawai)
     {
         //
     }
@@ -72,10 +52,10 @@ class CheckinController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Pegawai  $pegawai
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Pegawai $pegawai)
     {
         //
     }
@@ -84,10 +64,10 @@ class CheckinController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Pegawai  $pegawai
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pegawai $pegawai)
     {
         //
     }
@@ -95,10 +75,10 @@ class CheckinController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Pegawai  $pegawai
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pegawai $pegawai)
     {
         //
     }

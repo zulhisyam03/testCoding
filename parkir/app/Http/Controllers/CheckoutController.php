@@ -70,9 +70,18 @@ class CheckoutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+        $validasi   = $request->validate([
+            'noPolisi'  => 'required',
+            'tglMasuk'  => 'required|date',
+            'tglKeluar' => 'required|date',
+            'biaya'     => 'required'
+        ]);
+
+        $kendaraan  =   Checkout::find($id)->update($validasi);
+
+        return redirect('checkout')->with('sukses',"Sukses !!");
     }
 
     /**

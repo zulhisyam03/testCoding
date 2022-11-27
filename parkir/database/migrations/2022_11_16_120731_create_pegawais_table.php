@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('idPegawai')->unique();
-            $table->string('email')->unique();
-            $table->string('level');
-            $table->string('password');
-            $table->rememberToken();
+        Schema::create('pegawais', function (Blueprint $table) {
+            $table->string('id');
+            $table->string('nama');
+            $table->date('tglLahir')->nullable();
+            $table->string('jabatan')->nullable();
             $table->timestamps();
+
+            $table->foreign('id')->references('idPegawai')->on('users')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('pegawais');
     }
 };

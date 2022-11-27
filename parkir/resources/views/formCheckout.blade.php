@@ -9,18 +9,19 @@
                 <hr>
             </div>
             <div class="card-body" id="data-kendaraan">
-                <form action="checkout" method="post">
+                <form action="#" method="post" id="form">                    
                     @csrf
+                    @method('PATCH')
                     <div class="row mb-2">
                         <div class="col-sm-5 col-form-label">No. Polisi</div>
                         <div class="col-sm mb-0">
-                            <input type="text" name="noPolisi" class="form-control" placeholder="DNxxxxMB" id="noPolisi" >
+                            <input type="text" name="noPolisi" class="form-control" placeholder="DNxxxxMB" id="noPolisi" autofocus required>
                         </div>
                     </div>                                       
                     <div class="row mb-2">
                         <div class="col-sm-5 col-form-label">Tanggal & Jam Masuk</div>
                         <div class="col-sm mb-0">
-                            <input type="text" name="tglMasuk" class="form-control text-capitalize" value=""
+                            <input type="text" name="tglMasuk" class="form-control text-capitalize"
                                 id="tglMasuk" readonly>
                         </div>
                     </div>                    
@@ -33,7 +34,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-5 col-form-label">Tanggal & Jam Keluar</div>
                         <div class="col-sm mb-0">
-                            <input type="datetime-local" name="tglKeluar" class="form-control text-capitalize" id="tglKeluar">
+                            <input type="datetime-local" name="tglKeluar" class="form-control text-capitalize" id="tglKeluar" required>
                         </div>
                     </div>                  
                     <div class="row mb-2">

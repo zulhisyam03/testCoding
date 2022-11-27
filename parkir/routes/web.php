@@ -23,4 +23,5 @@ Route::post('/login', [LoginController::class,'authenticate'])->middleware('gues
 Route::resource('checkin', CheckinController::class)->middleware('auth');
 Route::get('checkout/dataAjax', [CheckoutController::class,'dataAjax'])->middleware('auth');
 Route::resource('checkout', CheckoutController::class)->middleware('auth');
+Route::get('report', function(){return view('report');});
 Route::get('/logout', [LoginController::class,'logout'])->middleware('auth');

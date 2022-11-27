@@ -9,14 +9,14 @@
                     <hr>
                 </div>
                 <div class="card-body">
-                    <form action="/checkin" method="POST">
+                    <form action="/checkin" method="POST">                        
                         @csrf
                         <div class="row mb-2">
                             <div class="col-sm-4 col-form-label"><strong>No. Polisi</strong></div>
                             <div class="col-sm">
                                 <input type="text" name="noPolisi"
                                     class="form-control text-uppercase @error('noPolisi') is-invalid @enderror"
-                                    value="{{ old('noPolisi') }}" required>
+                                    value="{{ old('noPolisi') }}" required autofocus>
                                 @error('noPolisi')
                                     <div class="feedback-invalid">
                                         {{ $message }}
@@ -36,6 +36,7 @@
                                 @enderror
                             </div>
                         </div>
+                        <input type="hidden" name="tglMasuk" value="">
                         <button class="btn btn-success" style="float:right;">Checkin</button>
                     </form>
                     <a href="checkout">

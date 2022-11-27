@@ -239,17 +239,20 @@
                     type: 'GET',
                     data:{
                         noPolisi : $('#noPolisi').val(),
+                        form    : $('#form').val(),
                         ket  : 'kendaraan'
                     },                    
                     success: function(response){
                         let jenisKendaraan = response[0]['jenisKendaraan'];
                         let tglMasuk = response[0]['tglMasuk'];
+                        let id  = response[0]['id'];
                         
                         document.getElementById('biaya').value = '';
                         document.getElementById('tglKeluar').value = '';
                         document.getElementById('jenisKendaraan').value = jenisKendaraan;
                         document.getElementById('tglMasuk').value = tglMasuk;
-
+                        document.getElementById('form').action = "checkout/"+ id;
+                        console.log(form);
                         console.log(response);
                     },
                     error: function (response) {
@@ -268,8 +271,10 @@
                         },
                         success:function(response){
                             let biaya = response[0];
+                            let tglKeluar = $('#tglKeluar').val();
 
                             document.getElementById('biaya').value = biaya;
+                            console.log(tglKeluar);
                             console.log('Biaya : '+biaya);
                         },
                         error: function (response) {

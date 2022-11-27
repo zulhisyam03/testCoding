@@ -42,6 +42,14 @@
                         <fieldset>
                             <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                             <div class="input-block">
+                                <label for="signup-nama">Nama Lengkap</label>
+                                <input id="signup-nama" type="nama" required>
+                            </div>
+                            <div class="input-block">
+                                <label for="signup-idPegawai">ID Pegawai</label>
+                                <input id="signup-idPegawai" type="idPegawai" required>
+                            </div>
+                            <div class="input-block">
                                 <label for="signup-email">Email</label>
                                 <input id="signup-email" type="email" required>
                             </div>

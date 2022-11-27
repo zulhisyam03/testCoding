@@ -15,12 +15,15 @@ return new class extends Migration
     {
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
+            $table->string('idPegawai');
             $table->string('noPolisi');
             $table->string('jenisKendaraan');
-            $table->timestamp('tglMasuk');
-            $table->timestamp('tglKeluar')->nullable();
+            $table->dateTime('tglMasuk');
+            $table->dateTime('tglKeluar')->nullable();
             $table->integer('biaya')->nullable();
             $table->timestamps();
+
+            $table->foreign('idPegawai')->references('id')->on('pegawais');
         });
     }
 
