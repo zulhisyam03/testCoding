@@ -3,6 +3,8 @@
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CheckinController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PegawaiController;
+use App\Models\Pegawai;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +24,7 @@ Route::post('/login', [LoginController::class,'authenticate'])->middleware('gues
 
 Route::resource('checkin', CheckinController::class)->middleware('auth');
 Route::get('checkout/dataAjax', [CheckoutController::class,'dataAjax'])->middleware('auth');
+Route::resource('profile', PegawaiController::class)->middleware('auth');
 Route::resource('checkout', CheckoutController::class)->middleware('auth');
-Route::get('report', function(){return view('report');});
+Route::get('report', [CheckoutController::class,'report']);
 Route::get('/logout', [LoginController::class,'logout'])->middleware('auth');

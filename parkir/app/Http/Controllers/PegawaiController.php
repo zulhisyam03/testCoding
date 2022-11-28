@@ -14,7 +14,11 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        //
+        $data   = Pegawai::where('id',auth()->user()->pegawai->id)->first();
+    
+        return view('profile',[
+            'data'  => $data
+        ]);
     }
 
     /**
@@ -67,9 +71,18 @@ class PegawaiController extends Controller
      * @param  \App\Models\Pegawai  $pegawai
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pegawai $pegawai)
+    public function update(Request $request, $id)
     {
-        //
+        $validasi   =  $request->validate([
+            'id'        =>  'required',
+            'nama'      =>  'required',
+            'jabatan'   =>  'required',
+            'tglLahir'  =>  'required|date'
+        ]);
+
+        $data   =   Pegawai::where('id',$id)->update($validasi);
+
+        return redirect('profile')->with('sukses','Data Di Ubah !!!');
     }
 
     /**

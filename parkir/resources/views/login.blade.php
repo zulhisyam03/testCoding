@@ -17,14 +17,14 @@
                             <legend>Please, enter your email and password for login.</legend>
                             <div class="input-block">
                                 <label for="login-email">Email</label>
-                                <input id="login-email" type="email" name="email" class="@error('email') is-invalid @enderror" required>
+                                <input id="login-email" type="email" name="email" value="test@gmail.com" class="@error('email') is-invalid @enderror" required>
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="input-block">
                                 <label for="login-password">Password</label>
-                                <input id="login-password" type="password" name="password" class="@error('password') is-invalid @enderror" required>
+                                <input id="login-password" type="password" name="password" value="password" class="@error('password') is-invalid @enderror" required>
                                 @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

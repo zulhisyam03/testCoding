@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Checkout;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Validation\Rules\NotIn;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
@@ -92,7 +94,7 @@ class CheckoutController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return($id);
     }
 
     public function dataAjax(Request $request){
@@ -127,5 +129,11 @@ class CheckoutController extends Controller
             $biaya = $biaya;
             return response()->json([$biaya]);
         }      
+    }
+
+    public function report(){        
+        return view('report',[
+            'data'  => Checkout::where([['idPegawai',auth()->user()->idPegawai],['tglKeluar','like','%-%']])->simplePaginate(15)
+        ]);
     }
 }

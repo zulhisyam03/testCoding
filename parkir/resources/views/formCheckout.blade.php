@@ -6,9 +6,9 @@
             @include('layouts.nav')
             <div class="card-title mt-2" align="center">
                 <h2>Form Checkout Parkir</h2>
-                <hr>
+                <hr class="mb-0">
             </div>
-            <div class="card-body" id="data-kendaraan">
+            <div class="card-body mt-0" id="data-kendaraan">
                 <form action="#" method="post" id="form">                    
                     @csrf
                     @method('PATCH')
@@ -45,10 +45,6 @@
                     </div>
                     <button class="btn btn-success" style="float:right;">Checkout</button>
                 </form>
-
-                <a href="/">
-                    <button class="btn btn-primary">Form Checkin</button>
-                </a>
             </div>
         </div>
     </div>

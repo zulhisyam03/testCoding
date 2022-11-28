@@ -4,10 +4,24 @@
             <i class="fa-solid fa-book fa-xl text-primary"></i>
         </button>
     </a>
-    <button class="btn btn-light border border-primary bg-none">
-        <i class="fa-solid fa-user fa-xl text-primary"></i>
-    </button>
-    <button class="btn btn-light border-danger float-end"><i
-            class="fa-solid fa-right-from-bracket text-danger"></i></button>
+    <a href="profile" style="text-decoration: none;">
+        <button class="btn btn-light border border-primary bg-none">
+            <i class="fa-solid fa-user fa-xl text-primary"></i>
+        </button>
+    </a>
+    <a href="checkin" style="text-decoration: none;">
+        <button class="btn btn-light border border-primary bg-none text-primary">
+            Checkin
+        </button>
+    </a>
+    <a href="checkout" style="text-decoration: none;">
+        <button class="btn btn-light border border-primary bg-none text-primary">
+            Checkout
+        </button>
+    </a>
+    <a href="logout">
+        <button class="btn btn-light border-danger float-end"><i
+                class="fa-solid fa-right-from-bracket text-danger"></i></button>
+    </a>
 </div>
 <strong class="text-center"><u>{{ auth()->user()->pegawai->nama }}</u></strong>

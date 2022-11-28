@@ -6,7 +6,7 @@
                 @include('layouts.nav')
                 <div class="card-title mt-2" align="center">
                     <h2>Form Checkin Parkir</h2>
-                    <hr>
+                    <hr class="mb-0">
                 </div>
                 <div class="card-body">
                     <form action="/checkin" method="POST">                        
@@ -39,9 +39,6 @@
                         <input type="hidden" name="tglMasuk" value="">
                         <button class="btn btn-success" style="float:right;">Checkin</button>
                     </form>
-                    <a href="checkout">
-                        <button class="btn btn-primary" style="">Form Checkout</button>
-                    </a>
                 </div>
             </div>
         </div>
