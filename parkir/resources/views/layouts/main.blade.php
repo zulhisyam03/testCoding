@@ -50,11 +50,11 @@
 
 
         .area {
-            background: #4e54c8;
+            background: #4e54c8 no-repeat;
             background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
             width: 100%;
             height: 100vh;
-
+            background-attachment: fixed;
 
         }
 
@@ -198,8 +198,8 @@
 <body>
 
     {{-- Background 2 --}}
-    <div class="area">
-        <ul class="circles">
+    <div class="area" style="">
+        <ul class="circles position-fixed">
             <li></li>
             <li></li>
             <li></li>

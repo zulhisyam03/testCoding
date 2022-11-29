@@ -14,7 +14,7 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $data   = Pegawai::where('id',auth()->user()->pegawai->id)->first();
+        $data   = Pegawai::where('id',auth()->user()->idPegawai)->first();
     
         return view('profile',[
             'data'  => $data

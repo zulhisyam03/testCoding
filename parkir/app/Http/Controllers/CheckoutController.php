@@ -94,7 +94,9 @@ class CheckoutController extends Controller
      */
     public function destroy($id)
     {
-        return($id);
+        $data = Checkout::find($id)->delete();
+
+        return redirect('report')->with('sukses','Data Dihapus !!!');
     }
 
     public function dataAjax(Request $request){

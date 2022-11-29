@@ -21,10 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function(){return redirect('/login');})->middleware('guest');
 Route::get('/login', [LoginController::class,'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class,'authenticate'])->middleware('guest');
+Route::post('register', [LoginController::class,'register'])->middleware('guest');
 
 Route::resource('checkin', CheckinController::class)->middleware('auth');
 Route::get('checkout/dataAjax', [CheckoutController::class,'dataAjax'])->middleware('auth');
 Route::resource('profile', PegawaiController::class)->middleware('auth');
 Route::resource('checkout', CheckoutController::class)->middleware('auth');
-Route::get('report', [CheckoutController::class,'report']);
+Route::get('report', [CheckoutController::class,'report'])->middleware('auth');
 Route::get('/logout', [LoginController::class,'logout'])->middleware('auth');

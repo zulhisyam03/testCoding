@@ -19,9 +19,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'idPegawai',        
         'email',
-        'position',
+        'level',
+        'password',
+        'remember_token'
     ];
 
     /**
@@ -39,9 +41,9 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 
     public function pegawai(){
         return $this->hasOne(Pegawai::class,'id','idPegawai');

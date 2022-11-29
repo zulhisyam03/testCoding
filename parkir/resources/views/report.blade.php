@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
     {{-- <div class="blok"> --}}
-    <div class="container-fluid position-absolute top-0">
+    <div class="container-fluid position-absolute" style="top:50px;">
         <div class="card">
             @include('layouts.nav')
             <div class="card-title mt-2" align="center">
@@ -38,7 +38,7 @@
                                         <form action="checkout/{{ $item->id }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <button class="btn btn-danger btn-sm">Delete</button>
+                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin Hapus Data?');">Delete</button>
                                         </form>
                                     </td>
                                     @php
