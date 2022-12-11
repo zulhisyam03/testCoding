@@ -23,9 +23,11 @@ Route::get('/login', [LoginController::class,'index'])->name('login')->middlewar
 Route::post('/login', [LoginController::class,'authenticate'])->middleware('guest');
 Route::post('register', [LoginController::class,'register'])->middleware('guest');
 
+Route::get('/reportadmin', [PegawaiController::class,'index'])->middleware('auth');
 Route::resource('checkin', CheckinController::class)->middleware('auth');
 Route::get('checkout/dataAjax', [CheckoutController::class,'dataAjax'])->middleware('auth');
 Route::resource('profile', PegawaiController::class)->middleware('auth');
 Route::resource('checkout', CheckoutController::class)->middleware('auth');
 Route::get('report', [CheckoutController::class,'report'])->middleware('auth');
+Route::get('reportPegawai/{id}', [CheckoutController::class,'reportPegawai'])->middleware('auth');
 Route::get('/logout', [LoginController::class,'logout'])->middleware('auth');

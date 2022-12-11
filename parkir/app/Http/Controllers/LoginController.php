@@ -21,14 +21,21 @@ class LoginController extends Controller
     public function authenticate(Request $request){
         $validated = $request->validate([
             'email'  => 'required|min:6|email:dns',
-            'password'  => 'required|min:6'
+            'password'  => 'required|min:5'
         ]);
 
         if (Auth::attempt($validated)) {
             # code...
             $request->session()->regenerate();
 
-            return redirect()->intended('/checkin');
+            if (auth()->user()->level == 'admin') {
+                # code...
+                // return redirect()->intended('/reportadmin');
+                return('ADMIN');
+            }
+            else{
+                return redirect()->intended('/checkin');
+            }
         }
         return back()->with('gagal','Gagal login !!!');
     }

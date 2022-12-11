@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Checkout;
-use Carbon\Carbon;
 use DateTime;
-use Illuminate\Validation\Rules\NotIn;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Checkout;
+use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\NotIn;
 
 class CheckoutController extends Controller
 {
@@ -18,7 +21,7 @@ class CheckoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {       
+    {
         return view('formCheckout');
     }
 
@@ -40,7 +43,6 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        
     }
 
     /**
@@ -51,7 +53,6 @@ class CheckoutController extends Controller
      */
     public function show(Request $request)
     {
-
     }
 
     /**
@@ -72,7 +73,7 @@ class CheckoutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $validasi   = $request->validate([
             'noPolisi'  => 'required',
@@ -83,7 +84,7 @@ class CheckoutController extends Controller
 
         $kendaraan  =   Checkout::find($id)->update($validasi);
 
-        return redirect('checkout')->with('sukses',"Sukses !!");
+        return redirect('checkout')->with('sukses', "Sukses !!");
     }
 
     /**
@@ -94,35 +95,41 @@ class CheckoutController extends Controller
      */
     public function destroy($id)
     {
-        $data = Checkout::find($id)->delete();
+        if (auth()->user()->level == 'admin') {
+            # code...
+            $hapus = User::Where('idPegawai', $id)->delete();
+            return redirect('reportadmin')->with('sukses', 'Data Dihapus !!!');
+        } else {
+            $data = Checkout::find($id)->delete();
+            return redirect('report')->with('sukses', 'Data Dihapus !!!');
+        }
 
-        return redirect('report')->with('sukses','Data Dihapus !!!');
     }
 
-    public function dataAjax(Request $request){
+    public function dataAjax(Request $request)
+    {
         if ($request->ket == 'kendaraan') {
             # code...
-            $data = Checkout::where([['noPolisi',$request->noPolisi],['tglKeluar',null]])->get();
+            $data = Checkout::where([['noPolisi', $request->noPolisi], ['tglKeluar', null]])->get();
             return response()->json($data);
-        }else
+        } else
         if ($request->ket == 'biaya') {
             # code...
-            $tglMasuk= \Carbon\Carbon::parse($request->tglMasuk);
-            $tglKeluar= \Carbon\Carbon::parse($request->tglKeluar);
+            $tglMasuk = \Carbon\Carbon::parse($request->tglMasuk);
+            $tglKeluar = \Carbon\Carbon::parse($request->tglKeluar);
 
             $lamaParkir = $tglKeluar->diffInHours($tglMasuk);
 
             if ($lamaParkir >= 24) {
                 $biaya = 50000;
-            }else {
+            } else {
                 if ($lamaParkir <= 1) {
                     # code...
                     $biaya = 5000;
-                }
-                elseif ($lamaParkir > 1) {
+                } elseif ($lamaParkir > 1) {
                     # code...
                     $biaya = 5000 + (4000 * $lamaParkir);
-                    if ($biaya >50000) {
+                    if ($biaya > 50000) {
                         # code...
                         $biaya = 50000;
                     }
@@ -130,12 +137,20 @@ class CheckoutController extends Controller
             }
             $biaya = $biaya;
             return response()->json([$biaya]);
-        }      
+        }
     }
 
-    public function report(){        
-        return view('report',[
-            'data'  => Checkout::where([['idPegawai',auth()->user()->idPegawai],['tglKeluar','like','%-%']])->simplePaginate(15)
+    public function report()
+    {
+        return view('report', [
+            'data'  => Checkout::where([['idPegawai', auth()->user()->idPegawai], ['tglKeluar', 'like', '%-%']])->simplePaginate(15)
+        ]);
+    }
+    public function reportpegawai($id)
+    {
+        return view('report', [
+            'data'  => Checkout::where([['idPegawai', $id], ['tglKeluar', 'like', '%-%']])->simplePaginate(15),
+            'namaPegawai' => DB::table('pegawais')->select('nama')->first()
         ]);
     }
 }

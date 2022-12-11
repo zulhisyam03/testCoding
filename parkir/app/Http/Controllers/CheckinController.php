@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\Checkout;
+use \App\Models\Pegawai;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 
 class CheckinController extends Controller
 {
@@ -16,7 +19,10 @@ class CheckinController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        if(auth()->user()->level=='admin'){
+            return redirect('reportadmin');
+        }
+            return view('welcome');
     }
 
     /**
